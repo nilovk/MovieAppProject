@@ -1,13 +1,63 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>MovieDetails</ion-title>
+    <ion-title>Movie Details</ion-title>
+
+    <ion-button slot="end" [routerLink]="['/home']">
+      Home
+    </ion-button>
+    <ion-button slot="end" [routerLink]="['/favourites']">
+      Favourites
+      
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">MovieDetails</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content *ngIf="movie">
+
+  <!-- DESCRIPTION -->
+  <h2>{{ movie.title }}</h2>
+
+  <p><strong>Description:</strong></p>
+  <p>{{ movie.overview }}</p>
+
+  <!-- ADD BUTTON -->
+<ion-button *ngIf="!isFavourite()" (click)="addFavourite()">
+  Add To Favourites
+</ion-button>
+
+<!-- REMOVE BUTTON -->
+<ion-button color="danger" *ngIf="isFavourite()" (click)="removeFavourite()">
+  Remove From Favourites
+</ion-button>
+
+  <hr>
+
+  <!-- CAST -->
+  <h3>Cast:</h3>
+
+  <div *ngFor="let actor of cast" (click)="openPerson(actor.id)" style="cursor:pointer;">
+
+    <div style="margin-bottom: 15px; display: flex; gap: 10px;">
+
+      <!-- photo -->
+      <img 
+        [src]="getImage(actor.profile_path)" 
+        *ngIf="actor.profile_path"
+        style="width:60px; height:60px; border-radius:50%;"
+      >
+
+      <div>
+
+        <!-- Name -->
+        <p><strong>{{ actor.name }}</strong></p>
+
+        <!-- Role -->
+        <p>Role: {{ actor.character }}</p>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </ion-content>
