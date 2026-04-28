@@ -11,15 +11,15 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'movie-details',
-    loadComponent: () => import('./movie-details/movie-details.page').then( m => m.MovieDetailsPage)
-  },
-  {
-    path: 'details',
+    path: 'details/:id',
     loadComponent: () => import('./details/details.page').then( m => m.DetailsPage)
   },
   {
     path: 'favourites',
     loadComponent: () => import('./favourites/favourites.page').then( m => m.FavouritesPage)
+  },
+  {
+    path: 'movie-details/:id',
+    loadComponent: () => import('./movie-details/movie-details.page').then( m => m.MovieDetailsPage)
   },
 ];
