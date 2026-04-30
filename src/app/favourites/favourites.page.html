@@ -17,33 +17,33 @@
 
   <h2 *ngIf="movies.length == 0">No favourites yet</h2>
 
-  <ion-list>
+  <ion-card *ngFor="let movie of movies">
 
-  <ion-item *ngFor="let movie of movies">
-
-    <!-- IMAGE -->
+    <!-- POSTER -->
     <img
       *ngIf="movie.poster_path"
       [src]="getImage(movie.poster_path)"
+      style="width: 200px; height: auto; object-fit: cover;"
     >
 
-    <!-- CONTENT -->
-    <ion-label>
+    <!-- TITLE -->
+    <ion-card-header>
+      <ion-card-title>
         {{ movie.title }}
-    </ion-label>
+      </ion-card-title>
+    </ion-card-header>
 
-    
+    <!-- BUTTON -->
+    <ion-card-content>
 
-      <p *ngIf="!movie.poster_path">No image</p>
-
-      <ion-button size="small"  (click)="openDetails(movie.id)">
+      <ion-button size="small" (click)="openDetails(movie.id)">
         Details
       </ion-button>
 
-    
+      <p *ngIf="!movie.poster_path">No image</p>
 
-  </ion-item>
+    </ion-card-content>
 
-</ion-list>
+  </ion-card>
 
 </ion-content>

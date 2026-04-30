@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonCard, IonCardContent, IonCardTitle, IonCardHeader,
+  IonToolbar, IonButton, IonIcon, IonButtons } from '@ionic/angular/standalone';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { addIcons } from 'ionicons';
+import { home, heart } from 'ionicons/icons';
 
 
 
@@ -12,7 +15,8 @@ import { Router } from '@angular/router';
   selector: 'app-movie-details',
   templateUrl: './movie-details.page.html',
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, RouterLink,]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCard, IonCardContent, IonCardTitle, IonCardHeader,
+    IonButton, IonButtons, RouterLink, IonIcon ]
 })
 export class MovieDetailsPage implements OnInit {
 
@@ -22,7 +26,7 @@ export class MovieDetailsPage implements OnInit {
   favourites: any[] = [];
 
   constructor(private route: ActivatedRoute, private router: Router) {
-    
+    addIcons({ home, heart });
   }
 
   ngOnInit() {

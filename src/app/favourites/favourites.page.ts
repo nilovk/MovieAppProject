@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons, IonItem, IonList, IonLabel, IonIcon  } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonCard, IonCardContent, IonCardTitle, IonCardHeader,
+  IonButtons, IonItem, IonList, IonLabel, IonIcon  } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { home, heart } from 'ionicons/icons';
 
@@ -13,7 +14,7 @@ import { home, heart } from 'ionicons/icons';
   templateUrl: './favourites.page.html',
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonButtons, IonItem, IonIcon, IonList, 
-    RouterLink, CommonModule, IonLabel, ]
+    RouterLink, CommonModule, IonLabel, IonCard, IonCardContent, IonCardTitle, IonCardHeader, ]
 })
 export class FavouritesPage implements OnInit {
 

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonItem, IonList, IonListHeader, IonLabel, IonIcon, IonButtons, IonInput } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonCard, IonCardContent, IonCardTitle, IonCardHeader, 
+  IonItem, IonList, IonListHeader, IonLabel, IonIcon, IonButtons, IonInput } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { heart } from 'ionicons/icons';
@@ -12,7 +13,8 @@ import { environment } from 'src/environments/environment';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   standalone: true,
-  imports: [IonInput, IonButtons, IonIcon, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, RouterLink, IonItem, FormsModule, CommonModule],
+  imports: [IonInput, IonButtons, IonIcon, IonHeader, IonToolbar, IonTitle, IonCard, IonCardContent, IonCardTitle, IonCardHeader,
+    IonContent, IonButton, RouterLink, IonItem, FormsModule, CommonModule, IonList, IonLabel],
 })
 export class HomePage {
 

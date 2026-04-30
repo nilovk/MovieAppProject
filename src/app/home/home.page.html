@@ -17,12 +17,13 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <p>Search</p>
-  <ion-button [routerLink]="['/movie-details']">SEARCH</ion-button> -->
 
+  <ion-card>
+ 
   <!-- Input field for movie search -->
   <ion-item>
-    <span>Search</span><ion-input [(ngModel)]="searchQuery" placeholder="  Movie name" padding-left:50px;></ion-input>
+   
+    <ion-input label="Search" [(ngModel)]="searchQuery" placeholder="Movie name"></ion-input>
   </ion-item>
   <!-- Search button -->
   <ion-button expand="block" (click)="searchMovies()">SEARCH
@@ -33,23 +34,29 @@
   <h2 *ngIf="searchQuery">Results for: "{{ searchQuery }}"</h2>
 
   <!-- Display list of movies -->
-  <div *ngFor="let movie of movies"  [routerLink]="['/movie-details', movie.id]">
+  <ion-list>
+  <ion-card *ngFor="let movie of movies" [routerLink]="['/movie-details', movie.id]">
 
-    <!-- Movie poster -->
-    <img 
-      [src]="getImage(movie.poster_path)" 
-      *ngIf="movie.poster_path"
-    >
-  
-    <!-- Movie description -->
-    <p>{{ movie.overview }}</p>
-  
-  </div>
+    <img *ngIf="movie.poster_path"
+         [src]="getImage(movie.poster_path)"
+         alt="{{ movie.title }} poster"
+         style="width: 200px; height: auto; object-fit: cover; margin: 5px;">
+
+    <ion-card-header>
+      <ion-card-title>{{ movie.title }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      {{ movie.overview }}
+    </ion-card-content>
+
+  </ion-card>
+</ion-list>
 
 
 
 
 
 
-  
+  </ion-card>
 </ion-content>

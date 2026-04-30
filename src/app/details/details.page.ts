@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonList, IonItem, IonLabel, IonIcon, IonButtons } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonCard, IonCardContent, IonCardTitle, IonCardHeader, IonItemDivider, 
+   IonList, IonItem, IonLabel, IonIcon, IonButtons } from '@ionic/angular/standalone';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { addIcons } from 'ionicons';
@@ -13,7 +14,9 @@ import { Router } from '@angular/router';
   selector: 'app-details',
   templateUrl: './details.page.html',
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonLabel, IonList, IonItem, IonIcon, IonButtons, RouterLink]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar,
+     CommonModule, FormsModule, IonButton, IonLabel, IonCard, IonCardContent, IonCardTitle, IonCardHeader, IonItemDivider,
+     IonList, IonItem, IonIcon, IonButtons, RouterLink]
 })
 export class DetailsPage implements OnInit {
 

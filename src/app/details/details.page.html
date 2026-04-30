@@ -1,82 +1,91 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Details</ion-title>
+    <ion-title>{{ person?.name }}</ion-title>
+
     <ion-buttons slot="end">
+      <ion-button [routerLink]="['/home']">
+        <ion-icon name="home" class="grey-icon"></ion-icon>
+      </ion-button>
 
-  <!-- Home icon -->
-  <ion-button [routerLink]="['/home']">
-    <ion-icon name="home" class="grey-icon"></ion-icon>
-  </ion-button>
+      <ion-button [routerLink]="['/favourites']">
+        <ion-icon name="heart" class="grey-icon"></ion-icon>
+      </ion-button>
+    </ion-buttons>
 
-  <!-- Heart icon -->
-  <ion-button [routerLink]="['/favourites']">
-    <ion-icon name="heart" class="grey-icon"></ion-icon>
-  </ion-button>
-
-</ion-buttons>
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content *ngIf="person">
 
-  <!-- IMAGE -->
-  <div>
-    <img *ngIf="person.profile_path"
-         [src]="getImage(person.profile_path)">
+  <ion-card>
 
-    <p *ngIf="!person.profile_path">No image</p>
-  </div>
+    <!-- IMAGE -->
+    <ion-card-content>
+      <img 
+        *ngIf="person.profile_path"
+        [src]="getImage(person.profile_path)"
+        style="width: 200px; height: auto; object-fit: cover; margin: 5px;"
+      >
 
-  <!-- NAME -->
-  <h2>{{ person.name }}</h2>
+      <p *ngIf="!person.profile_path">No image</p>
+    </ion-card-content>
 
-  <!-- DOB -->
-  <p *ngIf="person.birthday">
-    DOB: {{ person.birthday }}
-  </p>
 
-  <!-- DOD -->
-  <p *ngIf="person.deathday">
-    DOD: {{ person.deathday }}
-  </p>
+    <!-- NAME -->
+    <ion-card-header>
+      <ion-card-title>{{ person.name }}</ion-card-title>
+    </ion-card-header>
 
-  <!-- AKA -->
-  <p *ngIf="person.also_known_as && person.also_known_as.length">
-    AKA: {{ person.also_known_as.join(', ') }}
-  </p>
 
-  <!-- DESCRIPTION -->
-  <p>{{ person.biography }}</p>
+    <!-- INFO -->
+    <ion-card-content>
 
-  <hr>
+      <p *ngIf="person.birthday">
+        DOB: {{ person.birthday }}
+      </p>
 
-  <!-- OTHER MOVIES -->
-  <h3>Other Movies</h3>
+      <p *ngIf="person.deathday">
+        DOD: {{ person.deathday }}
+      </p>
 
-  <ion-list>
+      <p *ngIf="person.also_known_as && person.also_known_as.length">
+        AKA: {{ person.also_known_as.join(', ') }}
+      </p>
+    <br>
+      <p>{{ person.biography }}</p>
 
-  <ion-item *ngFor="let movie of movies">
+    </ion-card-content>
 
-    <!-- LEFT: title -->
-    <ion-label>
-      {{ movie.title }}
-    </ion-label>
+    <ion-item-divider></ion-item-divider>
 
-    <!-- RIGHT: small image -->
-    <img
-      slot="end"
-      *ngIf="movie.poster_path"
-      [src]="getImage(movie.poster_path)"
-      style="width:40px; height:60px; object-fit:cover; border-radius:4px;"
-    >
 
-    <!-- fallback if no image -->
-    <p slot="end" *ngIf="!movie.poster_path">
-      No image
-    </p>
+    <!-- OTHER MOVIES -->
+    
 
-  </ion-item>
+    <ion-card-content>
 
-</ion-list>
+      <ion-item *ngFor="let movie of movies">
+
+        <ion-label>
+          {{ movie.title }}
+        </ion-label>
+
+        <img
+          slot="end"
+          *ngIf="movie.poster_path"
+          [src]="getImage(movie.poster_path)"
+          style="width: 40px; height: 60px; object-fit: cover; "
+        >
+
+        <p slot="end" *ngIf="!movie.poster_path">
+          No image
+        </p>
+
+      </ion-item>
+
+    </ion-card-content>
+
+  </ion-card>
 
 </ion-content>

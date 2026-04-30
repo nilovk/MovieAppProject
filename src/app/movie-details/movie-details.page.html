@@ -1,63 +1,91 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Movie Details</ion-title>
+    <ion-title>{{ movie?.title }}</ion-title>
 
-    <ion-button slot="end" [routerLink]="['/home']">
-      Home
-    </ion-button>
-    <ion-button slot="end" [routerLink]="['/favourites']">
-      Favourites
-      
-    </ion-button>
+    <ion-buttons slot="end">
+
+  <!-- Home icon -->
+  <ion-button [routerLink]="['/home']">
+    <ion-icon name="home" class="grey-icon"></ion-icon>
+  </ion-button>
+
+  <!-- Heart icon -->
+  <ion-button [routerLink]="['/favourites']">
+    <ion-icon name="heart" class="grey-icon"></ion-icon>
+  </ion-button>
+
+</ion-buttons>
   </ion-toolbar>
 </ion-header>
+
+
+
+
+
+
+
 
 <ion-content *ngIf="movie">
 
   <!-- DESCRIPTION -->
-  <h2>{{ movie.title }}</h2>
-
-  <p><strong>Description:</strong></p>
-  <p>{{ movie.overview }}</p>
+  
+<ion-card>
+  
+  <ion-card-content style="color: black;" >{{ movie.overview }}</ion-card-content>
 
   <!-- ADD BUTTON -->
-<ion-button *ngIf="!isFavourite()" (click)="addFavourite()">
+   <ion-card-content>
+<ion-button fill="outline" *ngIf="!isFavourite()" (click)="addFavourite()" >
+  <ion-icon slot="start" name="heart"></ion-icon>
   Add To Favourites
 </ion-button>
 
 <!-- REMOVE BUTTON -->
-<ion-button color="danger" *ngIf="isFavourite()" (click)="removeFavourite()">
+<ion-button *ngIf="isFavourite()" (click)="removeFavourite()">
+  <ion-icon slot="start" name="heart"></ion-icon>
   Remove From Favourites
 </ion-button>
+</ion-card-content>
 
-  <hr>
+<!-- CAST -->
 
-  <!-- CAST -->
-  <h3>Cast:</h3>
 
-  <div *ngFor="let actor of cast" (click)="openPerson(actor.id)" style="cursor:pointer;">
+  
+  <ion-card-header>
+    <ion-card-title>Cast</ion-card-title>
+  </ion-card-header>
 
-    <div style="margin-bottom: 15px; display: flex; gap: 10px;">
+  <ion-card-content>
 
-      <!-- photo -->
+    <ion-card *ngFor="let actor of cast" 
+              (click)="openPerson(actor.id)"
+              style="margin-bottom: 10px; cursor: pointer;">
+
+      <!-- IMAGE (like movie poster) -->
       <img 
-        [src]="getImage(actor.profile_path)" 
         *ngIf="actor.profile_path"
-        style="width:60px; height:60px; border-radius:50%;"
+        [src]="getImage(actor.profile_path)"
+        alt="{{ actor.name }}"
+        style="width: 100px; height: auto; object-fit: cover; margin: 5px;"
       >
 
-      <div>
+      <!-- TITLE -->
+      <ion-card-header>
+        <ion-card-title>{{ actor.name }}</ion-card-title>
+      </ion-card-header>
 
-        <!-- Name -->
-        <p><strong>{{ actor.name }}</strong></p>
+      <!-- TEXT -->
+      <ion-card-content>
+        Role: {{ actor.character }}
+      </ion-card-content>
 
-        <!-- Role -->
-        <p>Role: {{ actor.character }}</p>
+    </ion-card>
 
-      </div>
+  </ion-card-content>
 
-    </div>
+</ion-card>
 
-  </div>
+
+
 
 </ion-content>
