@@ -8,9 +8,10 @@
 
     <!-- Right side icon -->
     <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon name="heart" class="heart-icon"></ion-icon>
-      </ion-button>
+      <!-- Heart icon -->
+  <ion-button [routerLink]="['/favourites']">
+    <ion-icon name="heart" class="grey-icon"></ion-icon>
+  </ion-button>
     </ion-buttons>
 
   </ion-toolbar>
