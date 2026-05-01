@@ -41,12 +41,12 @@
       <ion-card *ngFor="let movie of movies" [routerLink]="['/movie-details', movie.id]">
 
         <!-- Only shows image if poster_path exists  -->
-          <!-- [src]="getImage(movie.poster_path) Calls a function to build the full image URL  -->
+        <!-- [src]="getImage(movie.poster_path) Calls a function to build the full image URL  -->
         <img *ngIf="movie.poster_path" [src]="getImage(movie.poster_path)" alt="{{ movie.title }} poster"
           style="width: 200px; height: auto; object-fit: cover; margin: 5px;">
 
-          <!-- Displays the movie title  -->
-          <ion-card-header>
+        <!-- Displays the movie title  -->
+        <ion-card-header>
           <ion-card-title>{{ movie.title }}</ion-card-title>
         </ion-card-header>
 

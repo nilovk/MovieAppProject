@@ -15,16 +15,19 @@ import { MyHttp } from '../services/my-http';
   templateUrl: 'home.page.html',
   standalone: true,
   imports: [IonInput, IonButtons, IonIcon, IonHeader, IonToolbar, IonTitle, IonCard, IonCardContent, IonCardTitle, IonCardHeader,
-    IonContent, IonButton, RouterLink, IonItem, FormsModule, CommonModule, IonList, IonLabel],
+    IonContent, IonButton, RouterLink, IonItem, FormsModule, CommonModule, IonList],
 })
 export class HomePage {
 
+  // Inject MyHTTP service
   constructor(private mhs: MyHttp) {
-    // Registers the heart icon so it can be used in HTML
+    // Registers the heart icon
     addIcons({ heart});
   }
 
+  // Stores user search input
   searchQuery: string = '';
+   // Stores list of movies to display
   movies: any[] = [];
 
   // Runs automatically when page loads
@@ -39,8 +42,10 @@ export class HomePage {
     // If search box is empty, show trending movies
     if (!this.searchQuery) {
       this.loadTrending();
-      return;
+      return; //stops the function
     }
+
+    // API request 
     let options = {
       url: 'https://api.themoviedb.org/3/search/movie',
       params: {
@@ -49,9 +54,14 @@ export class HomePage {
       }
     };
 
+    //Calls MyHttp service to make the HTTP GET request
+    //Await pauses the function until the response comes back
+    //The result contains data from the movie API 
     let result = await this.mhs.get(options);
 
-    this.movies = result.data.results || [];
+    //The list of movies
+    this.movies = result.data.results;
+    //console.log(result.data.results);
   }
 
 // Load today's trending movies
@@ -64,11 +74,14 @@ async loadTrending() {
         }
       };
 
+      // Fetch trending movies
       let result = await this.mhs.get(options);
 
-      this.movies = (result.data.results || []).slice(0, 5);
+      this.movies = (result.data.results);
+      //console.log(result.data.results);
+
     } catch (err) {
-      this.movies = [];
+      this.movies = []; //In case of error return empty list
     }
   }
 

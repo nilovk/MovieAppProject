@@ -14,35 +14,43 @@ import { Data } from '../services/data';
   selector: 'app-favourites',
   templateUrl: './favourites.page.html',
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonButtons, IonItem, IonIcon, IonList, 
-    RouterLink, CommonModule, IonLabel, IonCard, IonCardContent, IonCardTitle, IonCardHeader, ]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonButtons, IonIcon, 
+    RouterLink, CommonModule, IonCard, IonCardContent, IonCardTitle, IonCardHeader, ]
 })
 export class FavouritesPage implements OnInit {
 
 
-  movies: any[] = [];
+  // Stores favourite movies list
+  movies: any[] = []; 
 
+  // Inject services for routing and data storage
   constructor(private router: Router, private ds: Data) {
-    addIcons({ home, heart });
+    addIcons({ home, heart }); // Register icons for use
   }
 
+  // Runs automatically when page loads
   ngOnInit() {
     this.loadFavourites();
   }
 
+   // Runs every time page becomes active
   ionViewWillEnter() {
     this.loadFavourites();
   }
 
-  async loadFavourites() {
+   // Load favourites from storage
+    async loadFavourites() {
     let data = await this.ds.get('favourites');
+    // If data exists, use it; otherwise use empty array
     this.movies = data ? data : [];
   }
 
+  // Build full image URL for movie poster
   getImage(path: string) {
     return 'https://image.tmdb.org/t/p/w200' + path;
   }
 
+  // Navigate to movie details page with selected ID
   openDetails(id: number) {
     this.router.navigate(['/movie-details', id]);
   }

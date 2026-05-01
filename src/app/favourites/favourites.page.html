@@ -3,28 +3,27 @@
     <ion-title>Favourites</ion-title>
     <ion-buttons slot="end">
 
-  <!-- Home icon -->
-  <ion-button [routerLink]="['/home']">
-    <ion-icon name="home" class="grey-icon"></ion-icon>
-  </ion-button>
+      <!-- Navigation button -->
+      <ion-button [routerLink]="['/home']">
+        <ion-icon name="home" class="grey-icon"></ion-icon>
+      </ion-button>
 
 
-</ion-buttons>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+  <!-- Show message if no favourite movies exist -->
   <h2 *ngIf="movies.length == 0">No favourites yet</h2>
 
+  <!-- Loop through all favourite movies -->
   <ion-card *ngFor="let movie of movies">
 
     <!-- POSTER -->
-    <img
-      *ngIf="movie.poster_path"
-      [src]="getImage(movie.poster_path)"
-      style="width: 200px; height: auto; object-fit: cover;"
-    >
+    <img *ngIf="movie.poster_path" [src]="getImage(movie.poster_path)"
+      style="width: 200px; height: auto; object-fit: cover;">
 
     <!-- TITLE -->
     <ion-card-header>
@@ -36,10 +35,12 @@
     <!-- BUTTON -->
     <ion-card-content>
 
+      <!-- Navigate to movie details page -->
       <ion-button size="small" (click)="openDetails(movie.id)">
         Details
       </ion-button>
 
+      <!-- Show text if no image -->
       <p *ngIf="!movie.poster_path">No image</p>
 
     </ion-card-content>

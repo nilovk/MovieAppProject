@@ -1,7 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <!-- Display person name as page title -->
     <ion-title>{{ person?.name }}</ion-title>
 
+    <!-- Navigation buttons (Home + Favourites) -->
     <ion-buttons slot="end">
       <ion-button [routerLink]="['/home']">
         <ion-icon name="home" class="grey-icon"></ion-icon>
@@ -16,18 +18,18 @@
 </ion-header>
 
 
+<!-- MAIN CONTENT (show when data is loaded) -->
 <ion-content *ngIf="person">
 
   <ion-card>
 
     <!-- IMAGE -->
     <ion-card-content>
-      <img 
-        *ngIf="person.profile_path"
-        [src]="getImage(person.profile_path)"
-        style="width: 200px; height: auto; object-fit: cover; margin: 5px;"
-      >
+      <!-- Show image if image exists -->
+      <img *ngIf="person.profile_path" [src]="getImage(person.profile_path)"
+        style="width: 200px; height: auto; object-fit: cover; margin: 5px;">
 
+      <!-- Show text if no image -->
       <p *ngIf="!person.profile_path">No image</p>
     </ion-card-content>
 
@@ -41,44 +43,46 @@
     <!-- INFO -->
     <ion-card-content>
 
+      <!-- Date of birth  -->
       <p *ngIf="person.birthday">
         DOB: {{ person.birthday }}
       </p>
 
+      <!-- Date of death  -->
       <p *ngIf="person.deathday">
         DOD: {{ person.deathday }}
       </p>
 
+      <!-- Also known as  -->
       <p *ngIf="person.also_known_as && person.also_known_as.length">
         AKA: {{ person.also_known_as.join(', ') }}
       </p>
-    <br>
+      <br>
+      <!-- Biography text -->
       <p>{{ person.biography }}</p>
 
     </ion-card-content>
 
     <ion-item-divider></ion-item-divider>
 
-
     <!-- OTHER MOVIES -->
-    
 
     <ion-card-content>
 
+      <!-- Loop through movies array -->
       <ion-item *ngFor="let movie of movies">
 
         <ion-label>
+          <!-- Movie title -->
           {{ movie.title }}
         </ion-label>
 
-        <img
-          slot="end"
-          *ngIf="movie.poster_path"
-          [src]="getImage(movie.poster_path)"
-          style="width: 40px; height: 60px; object-fit: cover; "
-        >
+        <!-- Movie poster  -->
+        <img slot="end" *ngIf="movie.poster_path" [src]="getImage(movie.poster_path)"
+          style="width: 40px; height: 60px; object-fit: cover; ">
 
-        <p slot="end" *ngIf="!movie.poster_path">
+        <!-- Show text if no image -->
+          <p slot="end" *ngIf="!movie.poster_path">
           No image
         </p>
 
