@@ -6,6 +6,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonCard, IonCar
   IonButtons, IonItem, IonList, IonLabel, IonIcon  } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { home, heart } from 'ionicons/icons';
+import { Data } from '../services/data';
 
 
 
@@ -21,7 +22,7 @@ export class FavouritesPage implements OnInit {
 
   movies: any[] = [];
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private ds: Data) {
     addIcons({ home, heart });
   }
 
@@ -33,9 +34,9 @@ export class FavouritesPage implements OnInit {
     this.loadFavourites();
   }
 
-  loadFavourites() {
-    var data = localStorage.getItem('favourites');
-    this.movies = data ? JSON.parse(data) : [];
+  async loadFavourites() {
+    let data = await this.ds.get('favourites');
+    this.movies = data ? data : [];
   }
 
   getImage(path: string) {

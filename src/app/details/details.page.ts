@@ -7,6 +7,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { addIcons } from 'ionicons';
 import { home, heart } from 'ionicons/icons';
+import { MyHttp } from '../services/my-http';
 import { Router } from '@angular/router';
 
 
@@ -24,27 +25,35 @@ export class DetailsPage implements OnInit {
   person: any;
   movies: any[] = [];
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private mhs: MyHttp) {
     addIcons({ home, heart });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
 
-    var id = this.route.snapshot.paramMap.get('id');
+    let id = this.route.snapshot.paramMap.get('id');
 
     // Person details
-    fetch('https://api.themoviedb.org/3/person/' + id + '?api_key=' + environment.tmdbApiKey)
-      .then(res => res.json())
-      .then(data => {
-        this.person = data;
-      });
+    let personOptions = {
+      url: `https://api.themoviedb.org/3/person/${id}`,
+      params: {
+        api_key: environment.tmdbApiKey
+      }
+    };
+
+    let personResult = await this.mhs.get(personOptions);
+    this.person = personResult.data;
 
     // Known for movies
-    fetch('https://api.themoviedb.org/3/person/' + id + '/movie_credits?api_key=' + environment.tmdbApiKey)
-      .then(res => res.json())
-      .then(data => {
-        this.movies = (data.cast || []).slice(0, 5);
-      });
+    let moviesOptions = {
+      url: `https://api.themoviedb.org/3/person/${id}/movie_credits`,
+      params: {
+        api_key: environment.tmdbApiKey
+      }
+    };
+
+    let moviesResult = await this.mhs.get(moviesOptions);
+    this.movies = (moviesResult.data.cast || []).slice(0, 5);
   }
 
   getImage(path: string) {

@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    
+
     <!-- Left side title -->
     <ion-title slot="start">
       G00485960
@@ -8,56 +8,55 @@
 
     <!-- Right side icon -->
     <ion-buttons slot="end">
-      <!-- Heart icon -->
-  <ion-button [routerLink]="['/favourites']">
-    <ion-icon name="heart" class="grey-icon"></ion-icon>
-  </ion-button>
+      <!-- Heart icon navigates to /favourites when clicked -->
+      <ion-button [routerLink]="['/favourites']">
+        <ion-icon name="heart" class="grey-icon"></ion-icon>
+      </ion-button>
     </ion-buttons>
 
   </ion-toolbar>
 </ion-header>
 
+<!--  Main scrollable content area -->
 <ion-content [fullscreen]="true">
 
   <ion-card>
- 
-  <!-- Input field for movie search -->
-  <ion-item>
-   
-    <ion-input label="Search" [(ngModel)]="searchQuery" placeholder="Movie name"></ion-input>
-  </ion-item>
-  <!-- Search button -->
-  <ion-button expand="block" (click)="searchMovies()">SEARCH
-  </ion-button>
 
-  <!-- Title changes depending on state -->
-  <h2 *ngIf="!searchQuery">Today's Trending Movies</h2>
-  <h2 *ngIf="searchQuery">Results for: "{{ searchQuery }}"</h2>
+    <!-- Input field for movie search -->
+    <ion-item>
+      <!-- [(ngModel)]="searchQuery" enables two-way data binding -->
+      <ion-input label="Search" [(ngModel)]="searchQuery" placeholder="Movie name"></ion-input>
+    </ion-item>
+    <!-- Search button -->
+    <ion-button expand="block" (click)="searchMovies()">SEARCH
+    </ion-button>
 
-  <!-- Display list of movies -->
-  <ion-list>
-  <ion-card *ngFor="let movie of movies" [routerLink]="['/movie-details', movie.id]">
+    <!-- Title changes depending on state -->
+    <h2 *ngIf="!searchQuery">Today's Trending Movies</h2>
+    <h2 *ngIf="searchQuery">Results for: "{{ searchQuery }}"</h2>
 
-    <img *ngIf="movie.poster_path"
-         [src]="getImage(movie.poster_path)"
-         alt="{{ movie.title }} poster"
-         style="width: 200px; height: auto; object-fit: cover; margin: 5px;">
+    <!-- Display list of movies -->
+    <ion-list>
+      <!-- Loops through movies array. Each movie is displayed as a card -->
+      <ion-card *ngFor="let movie of movies" [routerLink]="['/movie-details', movie.id]">
 
-    <ion-card-header>
-      <ion-card-title>{{ movie.title }}</ion-card-title>
-    </ion-card-header>
+        <!-- Only shows image if poster_path exists  -->
+          <!-- [src]="getImage(movie.poster_path) Calls a function to build the full image URL  -->
+        <img *ngIf="movie.poster_path" [src]="getImage(movie.poster_path)" alt="{{ movie.title }} poster"
+          style="width: 200px; height: auto; object-fit: cover; margin: 5px;">
 
-    <ion-card-content>
-      {{ movie.overview }}
-    </ion-card-content>
+          <!-- Displays the movie title  -->
+          <ion-card-header>
+          <ion-card-title>{{ movie.title }}</ion-card-title>
+        </ion-card-header>
 
-  </ion-card>
-</ion-list>
+        <!-- Displays a short description  -->
+        <ion-card-content>
+          {{ movie.overview }}
+        </ion-card-content>
 
-
-
-
-
+      </ion-card>
+    </ion-list>
 
   </ion-card>
 </ion-content>

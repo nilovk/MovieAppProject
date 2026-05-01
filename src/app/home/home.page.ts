@@ -7,6 +7,7 @@ import { heart } from 'ionicons/icons';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { environment } from 'src/environments/environment';
+import { MyHttp } from '../services/my-http';
 
 
 @Component({
@@ -18,61 +19,58 @@ import { environment } from 'src/environments/environment';
 })
 export class HomePage {
 
-  constructor() {
+  constructor(private mhs: MyHttp) {
+    // Registers the heart icon so it can be used in HTML
     addIcons({ heart});
   }
 
   searchQuery: string = '';
   movies: any[] = [];
 
+  // Runs automatically when page loads
   ngOnInit() {
     // Load trending movies when page opens
     this.loadTrending();
   }
 
-  searchMovies() {
+  // Function to search movies based on user input
+  async searchMovies() {
 
+    // If search box is empty, show trending movies
     if (!this.searchQuery) {
-      // If search is empty, show trending movies
       this.loadTrending();
       return;
     }
-    var self = this;
+    let options = {
+      url: 'https://api.themoviedb.org/3/search/movie',
+      params: {
+        query: this.searchQuery,
+        api_key: environment.tmdbApiKey
+      }
+    };
 
-    // Do nothing if input is empty
-    // if (!this.searchQuery) return;
+    let result = await this.mhs.get(options);
 
-    // Send request API with search query
-    fetch('https://api.themoviedb.org/3/search/movie?query=' + this.searchQuery + '&api_key=' + environment.tmdbApiKey)
-      .then(function(res) {
-        // Convert response to JSON format
-        return res.json();
-      })
-      .then(function(data) {
-        self.movies = (data.results || []);  //Results
-      })
-      // .catch(function() {
-      // If request fails, clear results
-      //   self.movies = [];
-      // })
-      ;
-}
+    this.movies = result.data.results || [];
+  }
 
 // Load today's trending movies
-loadTrending() {
-  var self = this;
+async loadTrending() {
+    try {
+      let options = {
+        url: 'https://api.themoviedb.org/3/trending/movie/day',
+        params: {
+          api_key: environment.tmdbApiKey
+        }
+      };
 
-  fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=' + environment.tmdbApiKey)
-    .then(function(res) {
-      return res.json();
-    })
-    .then(function(data) {
-      self.movies = (data.results || []).slice(0, 5);
-    })
-    .catch(function() {
-      self.movies = [];
-    });
-}
+      let result = await this.mhs.get(options);
+
+      this.movies = (result.data.results || []).slice(0, 5);
+    } catch (err) {
+      this.movies = [];
+    }
+  }
 
 // Build full image URL for movie poster
 getImage(path: string) {
