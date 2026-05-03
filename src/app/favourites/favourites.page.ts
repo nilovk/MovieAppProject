@@ -54,4 +54,22 @@ export class FavouritesPage implements OnInit {
   openDetails(id: number) {
     this.router.navigate(['/movie-details', id]);
   }
+
+  // Extra functionality 2. Remove Favourites Button
+  // Remove movie from favourites
+  //  Slightly different to the one in movie-details.page.ts
+  async removeFavourite(id: number) {
+    let updated: any[] = [];  // Create a new array to store the updated favourites list
+    // Loop through all favourite movies
+    for (let i = 0; i < this.movies.length; i++) {
+      // Keep only movies that are NOT the current movie
+      if (this.movies[i].id != id) {
+        updated.push(this.movies[i]);
+      }
+    }
+    // Replace the current favourites list with the updated list
+    this.movies = updated;
+     // Save the updated favourites list to storage
+    await this.ds.set('favourites', this.movies);
+  }
 }

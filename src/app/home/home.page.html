@@ -35,6 +35,14 @@
     <h2 *ngIf="!searchQuery">Today's Trending Movies</h2>
     <h2 *ngIf="searchQuery">Results for: "{{ searchQuery }}"</h2>
 
+    <!-- Extra functionality 4. Empty Search Message -->
+    <ion-card-content *ngIf="searchQuery && movies.length == 0">
+      <pre>
+    ¯\_(ツ)_/¯
+    No results found
+      </pre>
+    </ion-card-content>
+
     <!-- Display list of movies -->
     <ion-list>
       <!-- Loops through movies array. Each movie is displayed as a card -->
@@ -48,6 +56,12 @@
         <!-- Displays the movie title  -->
         <ion-card-header>
           <ion-card-title>{{ movie.title }}</ion-card-title>
+
+          <!-- Extra functionality 3. Release Date -->
+          <ion-text *ngIf="movie.release_date">
+            Release Date: {{ movie.release_date }}
+          </ion-text>
+          
         </ion-card-header>
 
         <!-- Displays a short description  -->

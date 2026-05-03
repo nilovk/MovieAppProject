@@ -70,7 +70,8 @@
     <ion-card-content>
 
       <!-- Loop through movies array -->
-      <ion-item *ngFor="let movie of movies">
+      <!--  Extra functionality. Clickable Actor Movies -->
+      <ion-item *ngFor="let movie of movies" [routerLink]="['/movie-details', movie.id]">  
 
         <ion-label>
           <!-- Movie title -->
